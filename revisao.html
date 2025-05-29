@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reanálise do Processo</title>
+  <link rel="stylesheet" href="avaliacao_tela_reavaliacao.css" />
+  
+</head>
+<body>
+   
+ <div class="flutuante" id="flutuante">
+    Liquidificador <br>
+    Modelo: Brito <br>
+    127 V | 12 A | IPX1 <br>
+    
+  </div>
+
+
+  <h1>Reanálise do Processo</h1>
+
+  <!-- Formulário de Busca do Processo -->
+  <form id="formBuscaProcesso">
+    <div class="campo-numero-processo">
+      <input
+        type="text"
+        id="numeroProcessoBusca"
+        name="numeroProcessoBusca"
+        placeholder="Selecione um processo"
+        readonly
+        required
+      />
+      <button type="submit" id="btnLocalizarProcesso">Localizar Processo</button>
+    </div>
+  </form>
+
+  <!-- Formulário de Revisão -->
+  <form id="formRevisao">
+    <input
+      type="text"
+      id="numeroProcesso"
+      name="numeroProcesso"
+      readonly
+      placeholder="Número do processo selecionado"
+      required
+    />
+Situação  
+    <div class="campos-lado-a-lado">
+      <!-- MANUAL DO USUÁRIO =====================================================-->
+      <div class="Resultado_C_NC_NA">
+          <select id="item422res" name="item422res" required>
+            <option value="">-- Selecione --</option>
+            <option value="Conforme">Conforme</option>
+            <option value="Não Conforme">Não Conforme</option>
+            <option value="Não se aplica">Não se aplica</option>
+          </select> Manual
+      </div>
+
+      <div class="RegistroEvidencias" >
+          <textarea
+          id="item422reg"
+          name="item422reg"
+          rows="2"
+          cols="55"
+          placeholder="Digite o registro aqui..."
+          required
+        ></textarea>
+      </div>
+    </div>
+
+
+ <div class="campos-lado-a-lado">
+      <!-- MEMORIAL =====================================================-->
+      <div class="Resultado_C_NC_NA">
+          <select id="memorialDescritivoA" name="memorialDescritivoA" required>
+            <option value="">-- Selecione --</option>
+            <option value="Conforme">Conforme</option>
+            <option value="Não Conforme">Não Conforme</option>
+            <option value="Não se aplica">Não se aplica</option>
+          </select> 
+      </div> Memorial
+
+      <div class="RegistroEvidencias" >
+          <textarea
+          id="memorialDescritivoB"
+          name="memorialDescritivoB"
+          rows="2"
+          cols="55"
+          placeholder="Digite o registro aqui..."
+          required
+        ></textarea>
+      </div>
+    </div>
+
+
+
+
+    <button type="submit">Salvar</button>
+  </form>
+
+  <!-- Modal para seleção do processo -->
+  <div id="modalProcessos" style="display:none;">
+    <div id="modalConteudo">
+      <span id="fecharModal">&times;</span>
+      <h2>Selecione o Processo (duplo clique)</h2>
+      <ul id="listaProcessos"></ul>
+    </div>
+  </div>
+
+  <script src="revisao.js"></script>
+  <script src="flutuante.js"></script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Relatório de Auditoria</title>
+  <link rel="stylesheet" href="avaliacao_tela_reavaliacao.css" />
+</head>
+<body>
+  <h3>Relatório de Avaliação da Conformidade Técnica (RACT)</h1>
+<div></div>
+<div></div>
+ 
+  <form id="formAuditoria" style="margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    
+    <div class="campo-numero-processo">
+      <input type="text" id="numeroProcesso" name="numeroProcesso" placeholder="Número do Processo" required />
+    </div>
+
+
+    <!-- MANUAL DE INSTRUÇÕES -=================================================================================-->
+    <div class="campos-lado-a-lado" style="margin-top: 20px;">
+    <fieldset class="fieldset"> 
+    <legend class="fieldSetLegenda"> Manual de Instruções </legend>
+    
+      <div class="campo-manual">  </div>
+
+      <div class="campo-item422res">
+        
+        <select id="item422res" name="item422res" required>
+          <option value="">-- Selecione --</option>
+          <option value="Conforme">Conforme</option>
+          <option value="Não Conforme">Não Conforme</option>
+          <option value="Não se aplica">Não se aplica</option>
+        </select>
+      </div>
+
+      <div class="campo-item422reg">
+        <textarea id="item422reg" name="item422reg" rows="4" placeholder="Digite o registro aqui..." required></textarea>
+      </div>
+
+    </div>
+    </fieldset>
+
+<!-- MEMORIAL DESRITIVO -=================================================================================-->
+    <div class="campos-lado-a-lado" style="margin-top: 20px;">
+      <fieldset class="fieldset"> <legend class="fieldSetLegenda"> Memorial Descritivo </legend>
+          <div class="Resultado_C_NC_NA">
+          <select id="memorialDescritivo" name="memorialDescritivo" required>
+              <option value="">-- Selecione --</option>
+              <option value="Conforme">Conforme</option>
+              <option value="Não Conforme">Não Conforme</option>
+              <option value="Não se aplica">Não se aplica</option>
+          </select>
+          </div>
+
+
+        <div class="RegistroEvidencias" >
+              <textarea  id="memorialDescritivoB" name="memorialDescritivoB" rows="4" placeholder="Digite o registro aqui..." required></textarea>
+          </div>
+
+      </fieldset>
+
+
+
+    </div>
+
+    <button type="submit" style="margin-top: 10px;">Enviar</button>
+  </form>
+
+  <script src="formulario.js"></script>
+</body>
+</html>
