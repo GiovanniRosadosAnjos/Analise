@@ -1,4 +1,5 @@
-const API_URL = "https://sheetdb.io/api/v1/406nk87qmkmuh";
+const API_URL = "https://sheetdb.io/api/v1/406nk87qmkmuh?sheet=dbAvaliacao"; // api 1
+//const API_URL = "https://sheetdb.io/api/v1/ygjx7hr6r521t?sheet=dbAvaliacao"; // api 2
 
 document.getElementById('formAuditoria').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -15,7 +16,12 @@ document.getElementById('formAuditoria').addEventListener('submit', function (e)
   }
 
   // Verifica se já existe um registro inicial para esse número de processo
-  fetch(`${API_URL}/search?numeroProcesso=${encodeURIComponent(numeroProcesso)}&revisao=0`)
+  fetch(`https://sheetdb.io/api/v1/406nk87qmkmuh/search?sheet=dbAvaliacao&numeroProcesso=${encodeURIComponent(numeroProcesso)}&revisao=0`)
+
+  //fetch(`https://sheetdb.io/api/v1/ygjx7hr6r521t/search?sheet=dbAvaliacao&numeroProcesso=${encodeURIComponent(numeroProcesso)}&revisao=0`)
+
+
+
     .then(response => {
       if (!response.ok) {
         throw new Error("Erro na consulta de duplicidade");
