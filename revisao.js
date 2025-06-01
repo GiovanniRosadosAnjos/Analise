@@ -1,11 +1,18 @@
+
+// API 1: 406nk87qmkmuh      
 const API_URL = "https://sheetdb.io/api/v1/406nk87qmkmuh";
+const FLUTUANTE_API_URL = "https://sheetdb.io/api/v1/406nk87qmkmuh";
+
+// API 2:  ygjx7hr6r521t
+//const API_URL = "https://sheetdb.io/api/v1/ygjx7hr6r521t";
+//const FLUTUANTE_API_URL = "https://sheetdb.io/api/v1/ygjx7hr6r521t";
 
 // Elementos do formulário busca
-const formBusca = document.getElementById("formBuscaProcesso");
-const inputNumeroProcesso = document.getElementById("numeroProcessoBusca");
-const modal = document.getElementById("modalProcessos");
-const listaProcessos = document.getElementById("listaProcessos");
-const fecharModal = document.getElementById("fecharModal");
+const formBusca =             document.getElementById("formBuscaProcesso");
+const inputNumeroProcesso =   document.getElementById("numeroProcessoBusca");
+const modal =                 document.getElementById("modalProcessos");
+const listaProcessos =        document.getElementById("listaProcessos");
+const fecharModal =           document.getElementById("fecharModal");
 
 // Elementos do formulário revisão
 const formRevisao = document.getElementById("formRevisao");
@@ -39,11 +46,11 @@ formBusca.addEventListener("submit", e => {
       // Duplo clique para selecionar processo
       document.querySelectorAll("#listaProcessos li").forEach(li => {
         li.addEventListener("dblclick", () => {
-          // Preenche o input do formulário busca e do formulário revisão
           inputNumeroProcesso.value = li.textContent;
           inputNumeroProcessoRevisao.value = li.textContent;
           modal.style.display = "none";
           carregarUltimaRevisao(li.textContent);
+          carregarProduto(li.textContent); // Chama a função para preencher a DIV flutuante
         });
       });
     })
@@ -74,29 +81,22 @@ function carregarUltimaRevisao(numero) {
         item422regInput.value = "";
         memorialDescritivoAinput.value = "";
         memorialDescritivoBinput.value = "";
-
         return;
       }
 
-      // Pega a maior revisão
       const ultimaRevisao = data.reduce((prev, curr) => {
         return parseInt(curr.revisao) > parseInt(prev.revisao) ? curr : prev;
       });
 
       item422resInput.value = ultimaRevisao.item422res || "";
       item422regInput.value = ultimaRevisao.item422reg || "";
-
       memorialDescritivoAinput.value = ultimaRevisao.memorialDescritivoA || "";
       memorialDescritivoBinput.value = ultimaRevisao.memorialDescritivoB || "";
-
-
-
     })
     .catch(err => {
       alert("Erro ao buscar o processo: " + err.message);
       item422resInput.value = "";
       item422regInput.value = "";
-
       memorialDescritivoAinput.value = "";
       memorialDescritivoBinput.value = "";
     });
@@ -113,7 +113,7 @@ formRevisao.addEventListener("submit", e => {
   const novomemorialDescritivoA = memorialDescritivoAinput.value.trim();
   const novomemorialDescritivoB = memorialDescritivoBinput.value.trim();
 
-  if (!numero) { // testa se o campo PROCESSO foi preenchido ou demais campos já tem a função REQUIRED
+  if (!numero) {
     alert("Todos os campos devem ser preenchidos.");
     return;
   }
@@ -143,8 +143,6 @@ formRevisao.addEventListener("submit", e => {
             item422reg: novoItem422reg,
             memorialDescritivoA: novomemorialDescritivoA,
             memorialDescritivoB: novomemorialDescritivoB,
-
-
             revisao: novaRevisao
           }
         })
@@ -153,7 +151,6 @@ formRevisao.addEventListener("submit", e => {
           if (response.ok) {
             alert("Revisão adicionada com sucesso!");
             formRevisao.reset();
-            // Limpa o número processo no formulário busca (se desejar)
             inputNumeroProcesso.value = "";
             inputNumeroProcessoRevisao.value = "";
           } else {
@@ -164,3 +161,25 @@ formRevisao.addEventListener("submit", e => {
     })
     .catch(err => alert("Erro ao verificar revisões: " + err.message));
 });
+
+// ---------------------
+// PREENCHER DADOS NA DIV FLUTUANTE
+function carregarProduto(numeroProcesso) {
+  fetch(`${API_URL}/search?sheet=dbProduto&Processo=${encodeURIComponent(numeroProcesso)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        const produto = data[0];
+        document.getElementById('flutuante').innerHTML = `
+          <strong>Tipo:</strong> ${produto.Tipo || '-'}<br>
+          <strong>Modelo:</strong> ${produto.Modelo || '-'}<br>
+          <strong>Tensão:</strong> ${produto.Tensao || '-'}
+        `;
+      } else {
+        document.getElementById('flutuante').innerHTML = "Produto não encontrado.";
+      }
+    })
+    .catch(() => {
+      document.getElementById('flutuante').innerHTML = "Erro ao buscar o produto.";
+    });
+}
